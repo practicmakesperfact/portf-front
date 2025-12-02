@@ -1,22 +1,28 @@
 import React from 'react';
 import Header from '../common/Header';
 // import Footer from '../common/Footer';
-import ThemeToggle from '../common/ThemeToggle';
 import Background from './Background';
+import ScrollNavigation from '../common/ScrollNavigation';
 
 const Layout = ({ children }) => {
   return (
-    <div className="min-h-screen bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors duration-300">
+    <div className="min-h-screen bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors duration-300 relative">
       <Background />
-      <ThemeToggle />
       
-      <div className="relative z-10">
+      {/* Container with padding to prevent overlap */}
+      <div className="relative z-10 min-h-screen flex flex-col">
         <Header />
-        <main className="pt-16">
+        
+        {/* Main content area with top padding for header */}
+        <main className="flex-grow pt-16">
           {children}
         </main>
+        
         {/* <Footer /> */}
       </div>
+      
+      {/* Floating Scroll Navigation */}
+      <ScrollNavigation />
     </div>
   );
 };

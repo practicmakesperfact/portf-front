@@ -9,10 +9,11 @@ const ThemeToggle = () => {
   return (
     <motion.button
       onClick={toggleTheme}
-      className="fixed top-6 right-6 z-50 p-3 rounded-full bg-white/10 dark:bg-black/10 backdrop-blur-lg border border-white/20 dark:border-gray-800/50 shadow-lg hover:shadow-xl transition-all duration-300 group"
+      className="fixed top-6 right-6 z-50 p-3 rounded-full bg-white/80 dark:bg-gray-900/80 backdrop-blur-lg border border-gray-200 dark:border-gray-800 shadow-lg hover:shadow-xl transition-all duration-300 group"
       whileHover={{ scale: 1.1 }}
       whileTap={{ scale: 0.9 }}
       aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
+      style={{ marginTop: '4rem' }} // Add margin to prevent overlap
     >
       <div className="relative w-6 h-6">
         <motion.div
@@ -21,7 +22,7 @@ const ThemeToggle = () => {
           transition={{ duration: 0.5, type: 'spring' }}
         >
           {theme === 'dark' ? (
-            <Sun className="w-6 h-6 text-yellow-300" />
+            <Sun className="w-6 h-6 text-yellow-500" />
           ) : (
             <Moon className="w-6 h-6 text-gray-700" />
           )}
