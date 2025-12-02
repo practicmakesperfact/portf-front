@@ -1,15 +1,31 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { ArrowRight, Code2, Github, Linkedin, Twitter, FileText } from 'lucide-react';
+import { ArrowRight, Code2, Github, Linkedin, Mail, FileText } from 'lucide-react';
 import { useTheme } from '../../contexts/ThemeContext';
 
 const Hero = () => {
   const { theme } = useTheme();
+  const [currentRole, setCurrentRole] = useState(0);
+  
+  const roles = [
+    'Software Engineer',
+    'Full-Stack Developer',
+    'React Specialist',
+    'Django Expert'
+  ];
+
+  // Animate role text
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentRole((prev) => (prev + 1) % roles.length);
+    }, 3000);
+    return () => clearInterval(interval);
+  }, []);
 
   const socialLinks = [
-    { icon: Github, href: 'https://github.com/yourusername', label: 'GitHub' },
-    { icon: Linkedin, href: 'https://linkedin.com/in/yourusername', label: 'LinkedIn' },
-    { icon: Twitter, href: 'https://twitter.com/yourusername', label: 'Twitter' },
+    { icon: Github, href: 'https://github.com/haymanot-asmare', label: 'GitHub' },
+    { icon: Linkedin, href: 'https://linkedin.com/in/haymanot-asmare', label: 'LinkedIn' },
+    { icon: Mail, href: 'mailto:haymanot@example.com', label: 'Email' },
     { icon: FileText, href: '/resume.pdf', label: 'Resume' },
   ];
 
@@ -54,120 +70,117 @@ const Hero = () => {
 
   const floatVariants = {
     float: {
-      y: [0, -10, 0],
+      y: [0, -8, 0],
       transition: {
-        duration: 3,
+        duration: 2.5,
         repeat: Infinity,
         ease: 'easeInOut',
       },
     },
   };
 
+  const roleVariants = {
+    enter: { y: 20, opacity: 0 },
+    center: { y: 0, opacity: 1 },
+    exit: { y: -20, opacity: 0 },
+  };
+
   return (
     <section 
       id="home" 
-      className="relative min-h-screen flex items-center justify-center overflow-hidden section-padding"
+      className="relative min-h-[90vh] flex items-center justify-center overflow-hidden section-padding pt-20"
     >
       {/* Background Overlay */}
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-white dark:to-gray-900 z-0" />
       
-      {/* Content */}
+      {/* Content - Optimized for screen fit */}
       <div className="container-custom relative z-10">
         <motion.div
           variants={containerVariants}
           initial="hidden"
           animate="visible"
-          className="max-w-6xl mx-auto text-center"
+          className="max-w-5xl mx-auto text-center"
         >
-          {/* Animated Code Icon */}
+          {/* Animated Code Icon - Smaller */}
           <motion.div
             variants={itemVariants}
-            className="flex justify-center mb-8"
+            className="flex justify-center mb-6"
           >
             <motion.div
               variants={floatVariants}
               animate="float"
-              className="p-6 rounded-2xl glass-card inline-flex"
+              className="p-4 rounded-2xl glass-card inline-flex"
             >
-              <Code2 className="w-16 h-16 text-primary-600 dark:text-primary-400" />
+              <Code2 className="w-12 h-12 md:w-14 md:h-14 text-primary-600 dark:text-primary-400" />
             </motion.div>
           </motion.div>
 
-          {/* Title */}
+          {/* Title - Optimized text sizes */}
           <motion.h1
             variants={itemVariants}
-            className="text-5xl md:text-7xl lg:text-8xl font-bold mb-6"
+            className="text-3xl md:text-5xl lg:text-6xl font-bold mb-3"
           >
-            <span className="block text-gray-800 dark:text-white mb-2">
+            <span className="block text-gray-800 dark:text-white mb-1">
               Hi, I'm{' '}
               <span className="bg-gradient-to-r from-primary-600 to-green-500 dark:from-primary-400 dark:to-green-400 bg-clip-text text-transparent">
-                [Your Name]
+                Haymanot Asmare
               </span>
             </span>
-            <span className="block text-3xl md:text-5xl lg:text-6xl text-gray-600 dark:text-gray-300 font-mono">
-              Full Stack Developer
-            </span>
+            
+            {/* Animated Roles - Smaller */}
+            <div className="h-16 md:h-20 lg:h-24 flex items-center justify-center">
+              <motion.div
+                key={currentRole}
+                variants={roleVariants}
+                initial="enter"
+                animate="center"
+                exit="exit"
+                transition={{ duration: 0.5 }}
+                className="text-xl md:text-3xl lg:text-4xl text-gray-600 dark:text-gray-300 font-mono"
+              >
+                {roles[currentRole]}
+              </motion.div>
+            </div>
           </motion.h1>
 
-          {/* Subtitle */}
+          {/* Tagline - Smaller */}
           <motion.p
             variants={itemVariants}
-            className="text-xl md:text-2xl text-gray-600 dark:text-gray-400 mb-10 max-w-3xl mx-auto font-light"
+            className="text-lg md:text-xl text-primary-600 dark:text-primary-400 mb-6 max-w-2xl mx-auto font-semibold"
           >
-            Building exceptional digital experiences with{' '}
-            <span className="font-semibold text-primary-600 dark:text-primary-400">React</span>,{' '}
-            <span className="font-semibold text-primary-600 dark:text-primary-400">Django</span>, and modern web technologies
-            for companies worldwide.
+            Turning Ideas into Reality
           </motion.p>
 
-          {/* Specialization Tags */}
+          {/* CTA Buttons - Smaller */}
           <motion.div
             variants={itemVariants}
-            className="flex flex-wrap justify-center gap-3 mb-12"
-          >
-            {['React Specialist', 'Django Expert', 'UI/UX Designer', 'DevOps', 'API Development'].map((tag, index) => (
-              <motion.span
-                key={tag}
-                initial={{ opacity: 0, scale: 0 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: index * 0.1 + 0.5 }}
-                className="px-4 py-2 rounded-full bg-primary-50 dark:bg-primary-900/30 text-primary-700 dark:text-primary-300 font-medium text-sm border border-primary-200 dark:border-primary-800"
-              >
-                {tag}
-              </motion.span>
-            ))}
-          </motion.div>
-
-          {/* CTA Buttons */}
-          <motion.div
-            variants={itemVariants}
-            className="flex flex-col sm:flex-row gap-4 justify-center mb-16"
+            className="flex flex-col sm:flex-row gap-3 justify-center mb-10"
           >
             <motion.button
               onClick={scrollToContact}
-              className="btn-primary group flex items-center justify-center space-x-2 text-lg"
+              className="btn-primary group flex items-center justify-center space-x-2 text-base px-5 py-2.5"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
               <span>Get In Touch</span>
-              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </motion.button>
             
             <motion.button
               onClick={scrollToProjects}
-              className="btn-secondary group flex items-center justify-center space-x-2 text-lg"
+              className="btn-secondary group flex items-center justify-center space-x-2 text-base px-5 py-2.5"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
-              <span>View Projects</span>
-              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+              <span>View My Work</span>
+              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </motion.button>
           </motion.div>
 
-          {/* Social Links */}
+          {/* Social Links - Smaller */}
           <motion.div
             variants={itemVariants}
-            className="flex justify-center space-x-6"
+            className="flex justify-center space-x-4 mb-10"
           >
             {socialLinks.map((link) => (
               <motion.a
@@ -175,61 +188,54 @@ const Hero = () => {
                 href={link.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-3 rounded-xl glass-card hover:bg-white/20 dark:hover:bg-black/20 transition-all group"
-                whileHover={{ y: -5, scale: 1.1 }}
+                className="p-2.5 rounded-xl glass-card hover:bg-white/20 dark:hover:bg-black/20 transition-all group"
+                whileHover={{ y: -3, scale: 1.1 }}
                 whileTap={{ scale: 0.95 }}
                 aria-label={link.label}
               >
-                <link.icon className="w-6 h-6 text-gray-700 dark:text-gray-300 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors" />
+                <link.icon className="w-5 h-5 md:w-6 md:h-6 text-gray-700 dark:text-gray-300 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors" />
               </motion.a>
             ))}
           </motion.div>
 
-          {/* Stats */}
+          {/* Stats - Smaller and compact */}
           <motion.div
             variants={itemVariants}
-            className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-16 max-w-4xl mx-auto"
+            className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-3xl mx-auto"
           >
             {[
-              { value: '4+', label: 'Years Experience' },
-              { value: '50+', label: 'Projects Completed' },
-              { value: '100%', label: 'Client Satisfaction' },
-              { value: '24/7', label: 'Available' },
+              { value: '2+', label: 'Years Experience' },
+              { value: '5+', label: 'Projects Delivered' },
+              { value: '10+', label: 'Happy Clients' },
+              { value: '10K+', label: 'Lines of Code' },
             ].map((stat, index) => (
               <motion.div
                 key={stat.label}
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 15 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.1 + 1 }}
-                className="text-center p-6 rounded-2xl glass-card"
+                transition={{ delay: index * 0.1 + 0.8 }}
+                className="text-center p-4 rounded-xl glass-card"
               >
-                <div className="text-3xl md:text-4xl font-bold text-primary-600 dark:text-primary-400 mb-2">
+                <div className="text-2xl md:text-3xl font-bold text-primary-600 dark:text-primary-400 mb-1">
                   {stat.value}
                 </div>
-                <div className="text-sm text-gray-600 dark:text-gray-400">
+                <div className="text-xs md:text-sm text-gray-600 dark:text-gray-400">
                   {stat.label}
                 </div>
               </motion.div>
             ))}
           </motion.div>
 
-          {/* Scroll Hint */}
+          {/* Mobile Scroll Hint - Smaller */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ delay: 1.5 }}
-            className="mt-20"
+            transition={{ delay: 1.2 }}
+            className="mt-12 md:hidden"
           >
-            <div className="text-gray-500 dark:text-gray-400 text-sm mb-2">
-              Scroll to explore
+            <div className="text-gray-500 dark:text-gray-400 text-xs mb-1">
+              Scroll or tap button to navigate
             </div>
-            <motion.div
-              animate={{ y: [0, 10, 0] }}
-              transition={{ duration: 1.5, repeat: Infinity }}
-              className="w-6 h-10 rounded-full border-2 border-gray-300 dark:border-gray-600 mx-auto relative"
-            >
-              <div className="w-1 h-3 bg-gray-400 dark:bg-gray-500 rounded-full absolute top-2 left-1/2 transform -translate-x-1/2" />
-            </motion.div>
           </motion.div>
         </motion.div>
       </div>

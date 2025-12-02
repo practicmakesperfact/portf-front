@@ -1,6 +1,6 @@
 import React from 'react';
 import Header from '../common/Header';
-// import Footer from '../common/Footer';
+import Footer from '../common/Footer'; 
 import Background from './Background';
 import ScrollNavigation from '../common/ScrollNavigation';
 
@@ -18,10 +18,10 @@ const Layout = ({ children }) => {
           {children}
         </main>
         
-        {/* <Footer /> */}
+        <Footer />
       </div>
       
-      {/* Floating Scroll Navigation */}
+      {/* Floating Scroll Navigation - Only shows on mobile */}
       <ScrollNavigation />
     </div>
   );
