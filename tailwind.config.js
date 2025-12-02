@@ -34,7 +34,7 @@ export default {
         "slide-left": "slideLeft 0.5s ease-out",
         "slide-right": "slideRight 0.5s ease-out",
         "pulse-glow": "pulseGlow 2s ease-in-out infinite",
-        "matrix-rain": "matrixRain 1.5s linear infinite",
+        
       },
       keyframes: {
         fadeIn: {

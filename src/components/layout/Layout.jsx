@@ -1,6 +1,6 @@
 import React from 'react';
 import Header from '../common/Header';
-import Footer from '../common/Footer';
+// import Footer from '../common/Footer';
 import ThemeToggle from '../common/ThemeToggle';
 import Background from './Background';
 
@@ -15,7 +15,7 @@ const Layout = ({ children }) => {
         <main className="pt-16">
           {children}
         </main>
-        <Footer />
+        {/* <Footer /> */}
       </div>
     </div>
   );
